@@ -1,4 +1,4 @@
-library reservoir;
+library proclaim;
 
 import 'dart:async';
 import 'dart:collection';
@@ -25,7 +25,7 @@ export 'hive_source.dart';
 
 const constPrimaryIndex = '_primary';
 
-class Reservoir<PrimaryKey extends Key<Record>, Record extends Object>
+class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
     with IterableMixin<Record> {
   final Map<String, Index<Key<Record>, Record>> indices = {};
   final PublishSubject<List<Change<Record>>> _changes = PublishSubject();
@@ -37,11 +37,11 @@ class Reservoir<PrimaryKey extends Key<Record>, Record extends Object>
   /// Return each change individually as a stream
   Stream<Change<Record>> get changes => batchedChanges.expand((i) => i);
 
-  /// Return all records in the Reservoir
+  /// Return all records in the Proclaim
   Iterable<Record> get data => primaryIndex.values;
 
-  /// Allow to iterate over all the records in the Reservoir
-  ///   e.g. `for (row in reservoir) { ... }`
+  /// Allow to iterate over all the records in the Proclaim
+  ///   e.g. `for (row in proclaim) { ... }`
   @override
   Iterator<Record> get iterator => data.iterator;
 
@@ -52,10 +52,10 @@ class Reservoir<PrimaryKey extends Key<Record>, Record extends Object>
   /// Given a record, return its key as stored in the `primaryIndex`
   String primaryKey(record) => primaryIndex.keyType.getKey(record);
 
-  /// Construct a Reservoir from a `source`. Requires `getKey` as a function
-  /// that maps a Record to a Key, so that the Reservoir can construct a
+  /// Construct a Proclaim from a `source`. Requires `getKey` as a function
+  /// that maps a Record to a Key, so that the Proclaim can construct a
   /// `primaryIndex`.
-  Reservoir(PrimaryKey keyType) {
+  Proclaim(PrimaryKey keyType) {
     indices[constPrimaryIndex] = IndexUnique<PrimaryKey, Record>(keyType);
   }
 
@@ -91,7 +91,7 @@ class Reservoir<PrimaryKey extends Key<Record>, Record extends Object>
       ..addAll(data);
   }
 
-  /// Clear all data in reservoir, including all indices
+  /// Clear all data in proclaim, including all indices
   Future<List<Change>> clear() async {
     return await removeAll(data);
   }
@@ -182,7 +182,7 @@ class Reservoir<PrimaryKey extends Key<Record>, Record extends Object>
   }
 
   @override
-  String toString() => 'Reservoir($source, '
+  String toString() => 'Proclaim($source, '
       'size: ${data.length}, '
       'indices: ${indices.keys.toList().join(",")})';
 }

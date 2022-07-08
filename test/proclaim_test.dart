@@ -1,17 +1,17 @@
 import 'package:test/test.dart';
 
-import 'package:reservoir/reservoir.dart';
+import 'package:proclaim/proclaim.dart';
 
 import 'helpers/simple_record.dart';
 
 void main() {
-  group('Reservoir', () {
+  group('Proclaim', () {
     late MapSource<SimpleRecord> source;
-    late Reservoir<KeyKey, SimpleRecord> res;
+    late Proclaim<KeyKey, SimpleRecord> res;
 
     setUp(() {
       source = MapSource();
-      res = Reservoir(KeyKey())..setSource(source);
+      res = Proclaim(KeyKey())..setSource(source);
     });
 
     test('add an element', () async {

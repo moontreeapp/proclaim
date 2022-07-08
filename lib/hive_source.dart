@@ -12,7 +12,7 @@ class HiveSource<Record> extends Source<Record> {
 
   HiveSource(this.name, {this.defaults});
 
-  // Return initial Hive box records to be used to populate Reservoir
+  // Return initial Hive box records to be used to populate Proclaim
   @override
   Map<String, Record> initialLoad() {
     var items =

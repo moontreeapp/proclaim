@@ -1,4 +1,4 @@
-import 'package:reservoir/reservoir.dart';
+import 'package:proclaim/proclaim.dart';
 
 class User {
   final String name;
@@ -27,17 +27,17 @@ extension ByActiveStatus on IndexMultiple<ActiveStatusKey, User> {
       getByKeyStr(_activeStatusKeyStr(active, status));
 }
 
-class UserReservoir extends Reservoir<NameKey, User> {
+class UserProclaim extends Proclaim<NameKey, User> {
   late IndexMultiple<ActiveStatusKey, User> byActiveStatus;
 
-  UserReservoir() : super(NameKey()) {
+  UserProclaim() : super(NameKey()) {
     byActiveStatus = addIndexMultiple('active-status', ActiveStatusKey());
   }
 }
 
 void main() async {
   var source = MapSource<User>();
-  var res = UserReservoir()..setSource(source);
+  var res = UserProclaim()..setSource(source);
   await res.save(User('John', true, 'pending'));
   await res.save(User('Shawna', true, 'complete'));
   await res.save(User('Meili', false, 'complete'));

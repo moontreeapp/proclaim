@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
-import 'package:reservoir/index_multiple.dart';
-import 'package:reservoir/key.dart';
+import 'package:proclaim/index_multiple.dart';
+import 'package:proclaim/key.dart';
 
 class SimpleRecord with EquatableMixin {
   final String key;

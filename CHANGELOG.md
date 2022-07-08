@@ -14,7 +14,7 @@
 
 ## 3.0.0
 
-- Remove source from Reservoir constructor
+- Remove source from Proclaim constructor
 - Call `setSource` to set the source at any time
 - Fix de-indexing when saving a record
 

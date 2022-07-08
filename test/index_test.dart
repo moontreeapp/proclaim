@@ -1,5 +1,5 @@
 import 'package:test/test.dart';
-import 'package:reservoir/reservoir.dart';
+import 'package:proclaim/proclaim.dart';
 import 'helpers/simple_record.dart';
 
 void main() {

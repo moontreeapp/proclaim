@@ -1,7 +1,7 @@
-name: reservoir
+name: proclaim
 description: An indexed table-like data type that works well with Hive boxes.
 version: 4.0.1
-homepage: https://github.com/moontreeapp/reservoir
+homepage: https://github.com/moontree/proclaim
 
 environment:
   sdk: '>=2.12.0 <3.0.0'

@@ -2,10 +2,10 @@ A table-like datatype with indices. Works well with [HiveDB][hive].
 
 ## Usage
 
-An example of using typed classes for keys and indexes on a Reservoir:
+An example of using typed classes for keys and indexes on a Proclaim:
 
 ```dart
-import 'package:reservoir/reservoir.dart';
+import 'package:proclaim/proclaim.dart';
 
 class User {
   final String name;
@@ -34,17 +34,17 @@ extension ByActiveStatus on IndexMultiple<ActiveStatusKey, User> {
       getByKeyStr(_activeStatusKeyStr(active, status));
 }
 
-class UserReservoir extends Reservoir<NameKey, User> {
+class UserProclaim extends Proclaim<NameKey, User> {
   late IndexMultiple<ActiveStatusKey, User> byActiveStatus;
 
-  UserReservoir() : super(NameKey()) {
+  UserProclaim() : super(NameKey()) {
     byActiveStatus = addIndexMultiple('active-status', ActiveStatusKey());
   }
 }
 
 void main() async {
   var source = MapSource<User>();
-  var res = UserReservoir()..setSource(source);
+  var res = UserProclaim()..setSource(source);
   await res.save(User('John', true, 'pending'));
   await res.save(User('Shawna', true, 'complete'));
   await res.save(User('Meili', false, 'complete'));
@@ -58,5 +58,5 @@ void main() async {
 
 Please file feature requests and bugs at the [issue tracker][tracker].
 
-[tracker]: http://github.com/moontreeapp/reservoir/issues
+[tracker]: http://github.com/moontreeapp/proclaim/issues
 [hive]: https://github.com/hivedb/hive
