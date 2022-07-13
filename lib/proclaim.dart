@@ -22,6 +22,7 @@ export 'index_multiple.dart';
 export 'source.dart';
 export 'map_source.dart';
 export 'hive_source.dart';
+export 'utilities/utilities.dart';
 
 const constPrimaryIndex = '_primary';
 
