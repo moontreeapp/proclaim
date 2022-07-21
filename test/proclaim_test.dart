@@ -24,7 +24,7 @@ void main() {
 
     test('remove an element', () async {
       await res.save(SimpleRecord('a', 'abc'));
-      expect(res.data.toList(), [SimpleRecord('a', 'abc')]);
+      expect(res.records.toList(), [SimpleRecord('a', 'abc')]);
 
       var c1 = await source.remove('a');
       expect(c1, Removed('a', SimpleRecord('a', 'abc')));
@@ -36,14 +36,14 @@ void main() {
       var source = MapSource({'a': SimpleRecord('a', 'abc')});
       res.setSource(source);
       res.setSource(source);
-      expect(res.data.length, 1);
+      expect(res.records.length, 1);
     });
 
-    test('clear all data', () async {
+    test('clear all records', () async {
       await res.save(SimpleRecord('a', 'abc'));
       await res.save(SimpleRecord('b', 'bcd'));
       await res.clear();
-      expect(res.data.isEmpty, true);
+      expect(res.records.isEmpty, true);
     });
 
     // test('changes made in sequence', () async {

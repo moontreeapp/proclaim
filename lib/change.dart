@@ -5,9 +5,9 @@ import 'package:equatable/equatable.dart';
 /// kinds of change: Added, Updated, Removed
 abstract class Change<Record> with EquatableMixin {
   Object id;
-  Record data;
+  Record record;
 
-  Change(this.id, this.data);
+  Change(this.id, this.record);
 
   T when<T>({
     required T Function(Loaded<Record>) loaded,
@@ -28,30 +28,30 @@ abstract class Change<Record> with EquatableMixin {
 
 class Added<Record> extends Change<Record> {
   bool didOverrideDefault;
-  Added(Object id, Record data, {this.didOverrideDefault = false})
-      : super(id, data);
+  Added(Object id, Record record, {this.didOverrideDefault = false})
+      : super(id, record);
 
   @override
-  String toString() => 'Added($id: $data)';
+  String toString() => 'Added($id: $record)';
 }
 
 class Updated<Record> extends Change<Record> {
-  Updated(Object id, Record data) : super(id, data);
+  Updated(Object id, Record record) : super(id, record);
 
   @override
-  String toString() => 'Updated($id: $data)';
+  String toString() => 'Updated($id: $record)';
 }
 
 class Removed<Record> extends Change<Record> {
-  Removed(Object id, Record data) : super(id, data);
+  Removed(Object id, Record record) : super(id, record);
 
   @override
-  String toString() => 'Removed($id: $data)';
+  String toString() => 'Removed($id: $record)';
 }
 
 class Loaded<Record> extends Change<Record> {
-  Loaded(Object id, Record data) : super(id, data);
+  Loaded(Object id, Record record) : super(id, record);
 
   @override
-  String toString() => 'Loaded($id: $data)';
+  String toString() => 'Loaded($id: $record)';
 }

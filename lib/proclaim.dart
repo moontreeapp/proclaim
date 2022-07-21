@@ -39,12 +39,12 @@ class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
   Stream<Change<Record>> get changes => batchedChanges.expand((i) => i);
 
   /// Return all records in the Proclaim
-  Iterable<Record> get data => primaryIndex.values;
+  Iterable<Record> get records => primaryIndex.values;
 
   /// Allow to iterate over all the records in the Proclaim
   ///   e.g. `for (row in proclaim) { ... }`
   @override
-  Iterator<Record> get iterator => data.iterator;
+  Iterator<Record> get iterator => records.iterator;
 
   /// Return the `primaryIndex` from the set of indices
   IndexUnique<PrimaryKey, Record> get primaryIndex =>
@@ -80,7 +80,7 @@ class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
   IndexUnique<K, Record> addIndexUnique<K extends Key<Record>>(
       String name, K keyType) {
     _assertNewIndexName(name);
-    return indices[name] = IndexUnique<K, Record>(keyType)..addAll(data);
+    return indices[name] = IndexUnique<K, Record>(keyType)..addAll(records);
   }
 
   /// Create a 'multiple' index and add all current records to it
@@ -89,12 +89,12 @@ class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
       [Compare? compare]) {
     _assertNewIndexName(name);
     return indices[name] = IndexMultiple<K, Record>(keyType, compare)
-      ..addAll(data);
+      ..addAll(records);
   }
 
-  /// Clear all data in proclaim, including all indices
+  /// Clear all records in proclaim, including all indices
   Future<List<Change>> clear() async {
-    return await removeAll(data);
+    return await removeAll(records);
   }
 
   /// Save a `record`, index it, and broadcast the change
@@ -127,12 +127,12 @@ class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
     change?.when(
         loaded: (change) {},
         added: (change) {
-          _addToIndices(change.data);
+          _addToIndices(change.record);
         },
         updated: (change) {
           var oldRecord = primaryIndex.getByKeyStr(primaryKey(record))[0];
           _removeFromIndices(oldRecord);
-          _addToIndices(change.data);
+          _addToIndices(change.record);
         },
         removed: (change) {});
     return change;
@@ -142,7 +142,7 @@ class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
   Future<Change<Record>?> _removeSilently(Record record) async {
     var key = primaryKey(record);
     var change = await source.remove(key);
-    if (change != null) _removeFromIndices(change.data);
+    if (change != null) _removeFromIndices(change.record);
     return change;
   }
 
@@ -184,6 +184,6 @@ class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
 
   @override
   String toString() => 'Proclaim($source, '
-      'size: ${data.length}, '
+      'size: ${records.length}, '
       'indices: ${indices.keys.toList().join(",")})';
 }
