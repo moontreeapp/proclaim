@@ -1,4 +1,6 @@
-import 'package:rxdart/src/transformers/backpressure/backpressure.dart';
+// ignore: implementation_imports
+import 'package:rxdart/src/transformers/backpressure/backpressure.dart'
+    show BackpressureStreamTransformer, WindowStrategy;
 
 class BufferCountWindowStreamTransformer<T>
     extends BackpressureStreamTransformer<T, List<T>> {
