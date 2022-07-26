@@ -38,6 +38,9 @@ class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
   /// Return each change individually as a stream
   Stream<Change<Record>> get changes => batchedChanges.expand((i) => i);
 
+  /// Return each change individually as a stream (alias for 'changes' stream)
+  Stream<Change<Record>> get change => batchedChanges.expand((i) => i);
+
   /// Return all records in the Proclaim
   Iterable<Record> get records => primaryIndex.values;
 
