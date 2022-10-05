@@ -7,11 +7,11 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  collection: ^1.15.0
-  equatable: ^2.0.3
-  hive: ^2.0.4
+  collection: ^1.16.0
+  equatable: ^2.0.5
+  hive: ^2.2.3
   ordered_set: ^5.0.0
-  rxdart: ^0.27.1
+  rxdart: ^0.27.5
 
 dev_dependencies:
   lints: ^1.0.0
