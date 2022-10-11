@@ -43,4 +43,7 @@ class HiveSource<Record> extends Source<Record> {
     await box.delete(key);
     return Removed(key, existing);
   }
+
+  @override
+  Future<int> delete() async => await box.clear();
 }

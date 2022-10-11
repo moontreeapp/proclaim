@@ -38,4 +38,11 @@ class MapSource<Record> extends Source<Record> {
   String toString() {
     return 'MapSource($map)';
   }
+
+  @override
+  Future<int> delete() async {
+    var x = map.length;
+    map.clear();
+    return x;
+  }
 }

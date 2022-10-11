@@ -10,4 +10,8 @@ abstract class Source<Record> {
 
   /// Removes a given `key` from the Source.
   Future<Change<Record>?> remove(String key);
+
+  /// removes all keys from the box as fast as possible.
+  /// does not report changes.
+  Future<int> delete();
 }

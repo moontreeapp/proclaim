@@ -31,6 +31,7 @@ class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
   final Map<String, Index<Key<Record>, Record>> indices = {};
   final PublishSubject<List<Change<Record>>> _changes = PublishSubject();
   late Source<Record> source;
+  late IndexUnique<PrimaryKey, Record> defaultIndex;
 
   /// Expose the stream of changes that can be subscribed to
   Stream<List<Change<Record>>> get batchedChanges => _changes.stream;
@@ -60,7 +61,8 @@ class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
   /// that maps a Record to a Key, so that the Proclaim can construct a
   /// `primaryIndex`.
   Proclaim(PrimaryKey keyType) {
-    indices[constPrimaryIndex] = IndexUnique<PrimaryKey, Record>(keyType);
+    defaultIndex = IndexUnique<PrimaryKey, Record>(keyType);
+    indices[constPrimaryIndex] = defaultIndex;
   }
 
   setSource(Source<Record> source) {
@@ -96,9 +98,18 @@ class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
   }
 
   /// Clear all records in proclaim, including all indices
-  Future<List<Change>> clear() async {
-    return await removeAll(records);
+  Future<int> delete() async {
+    primaryIndex.clear();
+    for (var index in indices.values) {
+      index.clear();
+    }
+    //indices.clear();
+    indices[constPrimaryIndex] = defaultIndex;
+    return await source.delete();
   }
+
+  /// Clear all records in proclaim, including all indices
+  Future<List<Change>> clear() async => await removeAll(records);
 
   /// Save a `record`, index it, and broadcast the change
   Future<Change<Record>?> save(Record record) async {
