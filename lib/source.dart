@@ -6,7 +6,7 @@ abstract class Source<Record> {
   Map<String, Record> initialLoad();
 
   /// Adds or updates the `model` at a given `key` in the Source.
-  Future<Change<Record>?> save(String key, Record record);
+  Future<Change<Record>?> save(String key, Record record, {bool force = false});
 
   /// Removes a given `key` from the Source.
   Future<Change<Record>?> remove(String key);

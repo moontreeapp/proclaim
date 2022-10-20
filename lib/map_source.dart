@@ -12,10 +12,16 @@ class MapSource<Record> extends Source<Record> {
   }
 
   @override
-  Future<Change<Record>?> save(String key, Record record) async {
+  Future<Change<Record>?> save(
+    String key,
+    Record record, {
+    bool force = false,
+  }) async {
     var existing = map[key];
     if (existing == record) {
-      return null;
+      if (!force) {
+        return null;
+      }
     }
     map[key] = record;
     if (existing == null) {

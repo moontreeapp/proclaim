@@ -112,8 +112,8 @@ class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
   Future<List<Change>> clear() async => await removeAll(records);
 
   /// Save a `record`, index it, and broadcast the change
-  Future<Change<Record>?> save(Record record) async {
-    var change = await _saveSilently(record);
+  Future<Change<Record>?> save(Record record, {bool force = false}) async {
+    var change = await _saveSilently(record, force: force);
     if (change != null) _changes.add([change]);
     return change;
   }
@@ -136,8 +136,11 @@ class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
   }
 
   // Index & save one record without broadcasting any changes
-  Future<Change<Record>?> _saveSilently(Record record) async {
-    var change = await source.save(primaryKey(record), record);
+  Future<Change<Record>?> _saveSilently(
+    Record record, {
+    bool force = false,
+  }) async {
+    var change = await source.save(primaryKey(record), record, force: force);
     change?.when(
         loaded: (change) {},
         added: (change) {

@@ -21,10 +21,16 @@ class HiveSource<Record> extends Source<Record> {
   }
 
   @override
-  Future<Change<Record>?> save(String key, Record record) async {
+  Future<Change<Record>?> save(
+    String key,
+    Record record, {
+    bool force = false,
+  }) async {
     var existing = box.get(key);
     if (existing == record) {
-      return null;
+      if (!force) {
+        return null;
+      }
     }
     await box.put(key, record);
     if (existing == null) {
