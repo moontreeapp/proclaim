@@ -51,5 +51,5 @@ class HiveSource<Record> extends Source<Record> {
   }
 
   @override
-  Future<int> delete() async => await box.clear();
+  Future<int> delete() async => box.clear();
 }

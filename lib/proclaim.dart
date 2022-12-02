@@ -109,7 +109,7 @@ class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
   }
 
   /// Clear all records in proclaim, including all indices
-  Future<List<Change>> clear() async => await removeAll(records);
+  Future<List<Change>> clear() async => removeAll(records);
 
   /// Save a `record`, index it, and broadcast the change
   Future<Change<Record>?> save(Record record, {bool force = false}) async {
