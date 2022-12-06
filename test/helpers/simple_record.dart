@@ -8,7 +8,7 @@ class SimpleRecord with EquatableMixin {
   SimpleRecord(this.key, this.value);
 
   @override
-  List<Object?> get props => [key];
+  List<Object?> get props => <Object?>[key];
 
   @override
   bool? get stringify => true;

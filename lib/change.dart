@@ -23,7 +23,7 @@ abstract class Change<Record> with EquatableMixin {
   }
 
   @override
-  List<Object> get props => [id];
+  List<Object> get props => <Object>[id];
 }
 
 class Added<Record> extends Change<Record> {
