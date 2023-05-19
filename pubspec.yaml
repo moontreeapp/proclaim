@@ -1,13 +1,13 @@
 name: proclaim
 description: An indexed table-like data type that works well with Hive boxes.
-version: 4.0.5
+version: 4.1.1
 homepage: https://github.com/moontreeapp/proclaim
 
 environment:
   sdk: '>=2.15.0 <4.0.0'
 
 dependencies:
-  collection: ^1.17.2
+  collection: ^1.17.1
   equatable: ^2.0.5
   hive: ^2.2.3
   ordered_set: ^5.0.1
