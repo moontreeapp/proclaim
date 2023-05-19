@@ -26,8 +26,16 @@ export 'utilities/utilities.dart';
 
 const constPrimaryIndex = '_primary';
 
+/* chatGPT suggested:
 class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
-    with IterableMixin<Record> {
+    extends Object with IterableMixin<Record> {  
+*/
+class Proclaim<PrimaryKey extends Key<Record>, Record extends Object>
+    extends IterableMixin<Record> {
+//  //with IterableMixin<Record> {
+//  // The class 'Iterable' can't be used as a mixin because it declares a constructor.
+//  //extends IterableMixin<Record> {
+
   final Map<String, Index<Key<Record>, Record>> indices = {};
   final PublishSubject<List<Change<Record>>> _changes = PublishSubject();
   late Source<Record> source;
